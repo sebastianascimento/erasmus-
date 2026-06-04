@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6efe6;
+  --foreground: #241711;
+  --surface: rgba(255, 250, 243, 0.86);
+  --surface-strong: #fff8f1;
+  --accent: #7f2f26;
+  --accent-strong: #5d221c;
+  --line: rgba(91, 42, 34, 0.12);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-cormorant);
+  --font-mono: var(--font-mono-custom);
+}
+
+.font-display {
+  font-family: var(--font-cormorant);
+}
+
+.font-body {
+  font-family: var(--font-manrope);
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(127, 47, 38, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(170, 118, 88, 0.12), transparent 24%),
+    linear-gradient(180deg, #fbf6ef 0%, #f6efe6 45%, #f1e6da 100%);
+  color: var(--foreground);
+  font-family: var(--font-manrope), sans-serif;
+}
+
+main {
+  position: relative;
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Remove default number input spinner */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(91, 42, 34, 0.06);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-strong);
+}
+
+svg circle:hover {
+  filter: drop-shadow(0 4px 8px rgba(127, 47, 38, 0.32));
+}
+
