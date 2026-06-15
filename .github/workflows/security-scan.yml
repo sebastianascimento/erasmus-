@@ -1,0 +1,37 @@
+name: Security Audit Scan
+
+# A pipeline corre automaticamente sempre que fazes push para a branch main ou master
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security_scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Descarrega o código do Kraków Eats para a máquina virtual do GitHub
+    - name: Checkout Kraków Eats Code
+      uses: actions/checkout@v4
+
+    # 2. Faz login no Docker Hub usando os Secrets que configuraste
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    # 3. Descarrega e corre o teu scanner sobre o código do Kraków Eats
+    - name: Run Security Scanner Container
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/src o-teu-username-dockerhub/secpipelinesebaacr:latest
+        
+    # 4. Guarda o PDF gerado nos Artifacts do GitHub
+    - name: Save Report as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: relatorio-seguranca-krakoweats
+        path: vulnerabilities_report.pdf
+        retention-days: 14
